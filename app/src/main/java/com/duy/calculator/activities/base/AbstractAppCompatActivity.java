@@ -1,17 +1,19 @@
 /*
- * Copyright 2017 Tran Le Duy
+ * Copyright (C) 2018 Duy Tran Le
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 package com.duy.calculator.activities.base;
@@ -22,8 +24,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,24 +36,18 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.duy.calculator.BuildConfig;
 import com.duy.calculator.R;
 import com.duy.calculator.data.CalculatorSetting;
 import com.duy.calculator.data.DatabaseHelper;
+import com.duy.calculator.helper.LocaleHelper;
 import com.duy.calculator.userinterface.FontManager;
 import com.duy.calculator.userinterface.ThemeEngine;
 import com.kobakei.ratethisapp.RateThisApp;
 
-import java.util.Locale;
-
 
 /**
- * abstract theme for app
- * <p>
- * auto set theme when user changed theme
- * <p>
  * Created by Duy on 19/7/2016
  */
 public abstract class AbstractAppCompatActivity extends AppCompatActivity
@@ -69,6 +63,11 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity
     }
 
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase));
+    }
+
     /**
      * set theme and init mHistoryDatabase for history
      */
@@ -80,7 +79,6 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity
         mHistoryDatabase = new DatabaseHelper(this);
         mSetting = new CalculatorSetting(this);
 
-        setLocale(false);
         setTheme(false);  //set theme for app
         setFullScreen();
     }
@@ -114,25 +112,6 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity
             int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
             decorView.setSystemUiVisibility(uiOptions);
         }
-    }
-
-    /**
-     * set language
-     */
-    private void setLocale(boolean create) {
-        Locale locale;
-        String code = mCalculatorSetting.getString(getString(R.string.key_pref_lang), "default_lang");
-        if (code.equals("default_lang")) {
-            locale = Locale.getDefault();
-        } else {
-            locale = new Locale(code);
-        }
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        Resources resources = getResources();
-        resources.updateConfiguration(config, resources.getDisplayMetrics());
-        if (create) recreate();
     }
 
 
@@ -183,8 +162,7 @@ public abstract class AbstractAppCompatActivity extends AppCompatActivity
         if (s.equalsIgnoreCase(getResources().getString(R.string.key_pref_theme))) {
             setTheme(true);
         } else if (s.equalsIgnoreCase(getString(R.string.key_pref_lang))) {
-            setLocale(true);
-            Toast.makeText(this, getString(R.string.change_lang_msg), Toast.LENGTH_SHORT).show();
+            recreate();
         } else if (s.equalsIgnoreCase(getString(R.string.key_pref_font))) {
             //reload type face
             FontManager.loadTypefaceFromAsset(this);

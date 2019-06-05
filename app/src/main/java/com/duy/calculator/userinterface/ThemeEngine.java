@@ -1,17 +1,19 @@
 /*
- * Copyright 2017 Tran Le Duy
+ * Copyright (C) 2018 Duy Tran Le
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 package com.duy.calculator.userinterface;
@@ -40,26 +42,24 @@ public class ThemeEngine {
     private final int mLightTheme;
     private final int mDarkTheme;
     private final int mBrownTheme;
-    private final int mLightDarkActionBarTheme;
     private final int mGradientTheme;
     private Resources mResources;
 
     public ThemeEngine(Context applicationContext) {
         this.mResources = applicationContext.getResources();
-        mCyanTheme = R.style.AppTheme_Cyan_NoActionBar;
-        mBlueGrayTheme = R.style.AppTheme_BlueGray_NoActionBar;
-        mBlueTheme = R.style.AppTheme_Blue_NoActionBar;
-        mIndigoTheme = R.style.AppTheme_Indigo_NoActionBar;
-        mRedTheme = R.style.AppTheme_Red_NoActionBar;
-        mPinkTheme = R.style.AppTheme_Pink_NoActionBar;
-        mPurpleTheme = R.style.AppTheme_Purple_NoActionBar;
-        mDeepPurpleTheme = R.style.AppTheme_DeepPurple_NoActionBar;
-        mTealTheme = R.style.AppTheme_Teal_NoActionBar;
-        mYellowTheme = R.style.AppTheme_Yellow_NoActionBar;
-        mLightTheme = R.style.AppTheme_Light_NoActionBar;
-        mDarkTheme = R.style.AppTheme_NoActionBar;
-        mLightDarkActionBarTheme = R.style.AppTheme_Light_DarkActionBar_NoActionBar;
-        mBrownTheme = R.style.AppTheme_Brown_NoActionBar;
+        mCyanTheme = R.style.AppTheme_Cyan;
+        mBlueGrayTheme = R.style.AppTheme_BlueGray;
+        mBlueTheme = R.style.AppTheme_Blue;
+        mIndigoTheme = R.style.AppTheme_Indigo;
+        mRedTheme = R.style.AppTheme_Red;
+        mPinkTheme = R.style.AppTheme_Pink;
+        mPurpleTheme = R.style.AppTheme_Purple;
+        mDeepPurpleTheme = R.style.AppTheme_DeepPurple;
+        mTealTheme = R.style.AppTheme_Teal;
+        mYellowTheme = R.style.AppTheme_Yellow;
+        mLightTheme = R.style.AppThemeLight;
+        mDarkTheme = R.style.AppThemeDark;
+        mBrownTheme = R.style.AppTheme_Brown;
         mGradientTheme = R.style.AppTheme_Gradient;
     }
 
